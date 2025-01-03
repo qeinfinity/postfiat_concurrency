@@ -87,10 +87,15 @@ This repository demonstrates an **augmented** version of the PostFiat initiative
 1. **Install Dependencies**:
    ```bash
    pip install openai
+   ```
 
-export OPENAI_API_KEY="sk-XXXX..."
-
-cd post_fiat_poh_tower
-./run_demo.sh
-
-python main.py
+2. **Set your OpenAI API Key (for synergy aggregator)**:
+   ```bash
+   export OPENAI_API_KEY="sk-XXXX..."
+   ```
+   
+3. Run the Demo:
+   ```bash
+   cd post_fiat_poh_tower
+   ./run_demo.sh
+   ```
