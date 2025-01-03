@@ -92,6 +92,18 @@ This repository demonstrates an **augmented** version of the PostFiat initiative
 
 ---
 
+## Maintaining AI-Determined Node Agency
+
+One might ask if introducing concurrency (Sealevel-like execution) and a new consensus approach (PoH + Tower BFT) departs from PostFiat’s original idea of **AI-determined node operations** via “agency.” In fact, the core principle remains intact:
+
+- **Agency Scoring is Alive and Well**: The AI aggregator still assesses each node’s overall behavior based on the original PostFiat signals (Focus, Motivation, Efficacy, Honesty) and synergy patterns. It can integrate concurrency metrics and new synergy logs to produce an “Agency Score” aligned with PostFiat’s ethos.
+- **Reinforcing (Not Replacing) Agency**: By providing parallel execution rails and better consensus, we’ve unlocked more **scalable** ways for nodes to demonstrate their value. The aggregator can reward that added complexity (e.g., synergy across many parallel tasks) without relying on PoW or PoS emissions.
+- **Subcommittee Selection**: If desired, the aggregator’s “Agency Score” can guide how the Epoch Manager assigns nodes to subcommittees or roles in each epoch—directly mapping the original “AI decides node set” concept from PostFiat into a more robust architecture.
+
+In this sense, we **haven’t departed** from PostFiat’s AI-based “agency” concept—**we’ve expanded** it, giving the aggregator richer data (transaction concurrency logs, synergy patterns) to refine each node’s agency evaluation, while preserving a **non-inflationary** reward model and consistent ledger design for advanced AI usage.
+
+---
+
 ## **Repository Layout**
 
 ```
