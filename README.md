@@ -54,6 +54,7 @@ This repository demonstrates an **augmented** version of the PostFiat initiative
 
 ## **Repository Layout**
 
+```
 ├── postfiat_concurrency
 │   ├── README.md
 │   ├── aggregator
@@ -79,6 +80,7 @@ This repository demonstrates an **augmented** version of the PostFiat initiative
 │   └── samples
 │       └── sample_transactions.py
 └── start.sh
+```
 
 ## **Running the Demo**
 
