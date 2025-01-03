@@ -1,4 +1,4 @@
-# PostFiat Parallel + AI Synergy Demo
+# PostFiat2.0: PostFiat Parallel + AI Synergy Demo
 
 This repository demonstrates an **augmented** version of the PostFiat initiative, originally designed to improve the XRP Ledger (XRPL) with AI-driven validation and escrow distribution. We adapt it to incorporate:
 
