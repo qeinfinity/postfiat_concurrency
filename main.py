@@ -17,6 +17,8 @@ from consensus.block_builder import BlockBuilder
 from aggregator.synergy_ai import AINodeAggregator
 from escrow.escrow_manager import EscrowManager
 
+# Import sample transactions for demonstration
+from samples.sample_transactions import get_demo_transactions
 
 def main():
     # 1) Initialize ledger & concurrency
@@ -35,6 +37,7 @@ def main():
         "NodeB": "Focus: NFTs, gaming synergy",
         "NodeC": "Focus: cross-chain bridging"
     }
+    # We'll let the aggregator produce synergy-based payouts every 15 seconds for this demo
     aggregator = AINodeAggregator(node_profiles=node_profiles, monthly_cycle=15.0)
 
     # 3a) Epoch Manager for Node Reassignments (optional)
@@ -46,32 +49,12 @@ def main():
     proposerA = BatchProposer("NodeA")
     proposerB = BatchProposer("NodeB")
 
-    # 4a) Add transactions with memos
-    def inc_action(read_data):
-        old_val = read_data.get("A", 0)
-        return {"A": old_val + 10}
-
-    tx1 = Transaction(
-        tx_id="tx1",
-        read_keys={"A"},
-        write_keys={"A"},
-        action_fn=inc_action,
-        memo="Hello from user1. This is a DeFi deposit task."
-    )
-    proposerA.add_to_primary(tx1)
-
-    def incB_action(read_data):
-        old_val = read_data.get("B", 0)
-        return {"B": old_val + 5}
-
-    tx2 = Transaction(
-        tx_id="tx2",
-        read_keys={"B"},
-        write_keys={"B"},
-        action_fn=incB_action,
-        memo="User2 minted an NFT. Possibly synergy with NodeB's NFT focus."
-    )
-    proposerB.add_to_primary(tx2)
+    # 4a) Load sample transactions
+    demo_txs = get_demo_transactions()
+    # Let's say NodeA picks the first two, NodeB picks the last one
+    proposerA.add_to_primary(demo_txs[0])
+    proposerA.add_to_primary(demo_txs[1])
+    proposerB.add_to_primary(demo_txs[2])
 
     # 5) Optionally let aggregator reorder tasks for synergy if desired
     new_batchA = aggregator.propose_ordering_for_block(proposerA.primary_bucket, "NodeA")
@@ -84,6 +67,7 @@ def main():
     batchA = proposerA.form_batch()
     batchB = proposerB.form_batch()
 
+    # Produce data availability certificates
     daqcA = compute_daqc(batchA)
     daqcB = compute_daqc(batchB)
 
@@ -98,9 +82,10 @@ def main():
 
         # aggregator: gather memos + node activity
         block_memos = [tx.memo for tx in all_txs]
+        # NodeA, NodeB each get a base of 5 points for participating
         aggregator.process_final_block(
             block=block1,
-            node_activity={"NodeA": 5, "NodeB": 5},  # credit them for batch proposals
+            node_activity={"NodeA": 5, "NodeB": 5},
             block_memos=block_memos
         )
 
