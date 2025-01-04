@@ -2,12 +2,15 @@
 
 import time
 import os
-import openai
+from openai import OpenAI
 import json
 from typing import Dict, List
 
 # Deterministic LLM usage
-openai.api_key = os.getenv("OPENAI_API_KEY")
+#openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+)
 
 class AINodeAggregator:
     """
@@ -84,13 +87,13 @@ Return a JSON object of synergy scores like:
 
         # Deterministic call
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+            response = client.chat.completions.create(
+                model="gpt-4o",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
                 max_tokens=200,
             )
-            content = response["choices"][0]["message"]["content"].strip()
+            content = response.choices[0].message.content.strip()
         except Exception as e:
             print("[AI Aggregator] OpenAI call failed:", e)
             return {}
@@ -181,3 +184,4 @@ Return a JSON object of synergy scores like:
         old_score = self.node_scores.get(suspicious_node, 0)
         self.node_scores[suspicious_node] = old_score - penalty_points
         print(f"[AI Aggregator] Node {suspicious_node} penalized: {reason}")
+
